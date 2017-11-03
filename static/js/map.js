@@ -520,7 +520,7 @@ function pokemonLabel(item) {
     var contentstring = ''
     var formString = ''
 
-    if (id === 201 && form !== null && form > 0) {
+    if (id === 201 && form && form > 0) {
         formString += `(${unownForm[item['form']]})`
     }
 
@@ -529,10 +529,10 @@ function pokemonLabel(item) {
       ${name} <span class='pokemon name pokedex'><a href='http://pokemon.gameinfo.io/en/pokemon/${id}' target='_blank' title='View in Pokédex'>#${id}</a></span> ${formString} <span class='pokemon gender rarity'>${genderType[gender - 1]} ${rarityDisplay}</span> ${typesDisplay}
     </div>`
 
-    if (cp !== null && cpMultiplier !== null) {
+    if (cp && cpMultiplier) {
         var pokemonLevel = getPokemonLevel(cpMultiplier)
 
-        if (atk !== null && def !== null && sta !== null) {
+        if (atk && def && sta) {
             var iv = getIv(atk, def, sta)
         }
 
@@ -627,7 +627,7 @@ function gymLabel(gym, includeMembers = true) {
     const raid = gym.raid
     var raidStr = ''
     if (raid && raid.end > Date.now()) {
-        if (raid.pokemon_id !== null) {
+        if (raid.pokemon_id) {
             let pMove1 = (moves[raid['move_1']] !== undefined) ? i8ln(moves[raid['move_1']]['name']) : 'unknown'
             let pMove2 = (moves[raid['move_2']] !== undefined) ? i8ln(moves[raid['move_2']]['name']) : 'unknown'
 
@@ -688,7 +688,7 @@ function gymLabel(gym, includeMembers = true) {
                 </div>
             `
             // Use Pokémon-specific image if we have one.
-            if (raid.pokemon_id !== null && pokemonWithImages.indexOf(raid.pokemon_id) !== -1) {
+            if (raid.pokemon_id && pokemonWithImages.indexOf(raid.pokemon_id) !== -1) {
                 image = `
                     <div class='raid container'>
                     <div class='raid container content-left'>
@@ -902,7 +902,7 @@ function isRangeActive(map) {
 }
 
 function getIv(atk, def, stm) {
-    if (atk !== null) {
+    if (atk) {
         return 100.0 * (atk + def + stm) / 45
     }
 
@@ -2556,7 +2556,7 @@ $(function () {
         return $state
     }
 
-    if (Store.get('startAtUserLocation') && getParameterByName('lat') == null && getParameterByName('lon') == null) {
+    if (Store.get('startAtUserLocation') && getParameterByName('lat') && getParameterByName('lon')) {
         centerMapOnLocation()
     }
 
